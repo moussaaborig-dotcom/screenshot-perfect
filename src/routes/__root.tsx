@@ -9,28 +9,30 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { SearchX } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { I18nProvider, useI18n } from "@/i18n/I18nProvider";
+import { Toaster } from "@/components/ui/sonner";
+import { buttonVariants } from "@/components/ui/button";
+import { EmptyState } from "@/components/common/EmptyState";
 
 function NotFoundComponent() {
+  const { t } = useI18n();
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
+      <EmptyState
+        icon={SearchX}
+        title={t.empty.notFoundTitle}
+        text={t.empty.notFoundText}
+        className="w-full max-w-md"
+        action={
+          <Link to="/" className={buttonVariants({ variant: "default" })}>
+            {t.empty.backHome}
           </Link>
-        </div>
-      </div>
+        }
+      />
     </div>
   );
 }
@@ -46,7 +48,7 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          This page didn't load / تعذّر تحميل الصفحة
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
@@ -57,14 +59,11 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className={buttonVariants({ variant: "default" })}
           >
             Try again
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
+          <a href="/" className={buttonVariants({ variant: "outline" })}>
             Go home
           </a>
         </div>
@@ -78,20 +77,30 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "WIN — وين تلقى واش تحتاج؟ | Sidi Mezghiche" },
+      {
+        name: "description",
+        content:
+          "WIN : découvrez les boutiques locales de Sidi Mezghiche, comparez produits et prix, contactez les commerçants sur WhatsApp.",
+      },
+      { name: "author", content: "WIN" },
+      { property: "og:title", content: "WIN — Boutiques locales de Sidi Mezghiche" },
+      {
+        property: "og:description",
+        content: "Découvrez les commerces locaux et comparez les produits à Sidi Mezghiche, Skikda.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "theme-color", content: "#172B4D" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap",
       },
+      { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
@@ -101,17 +110,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: ReactNode }) {
+function Html({ children }: { children: ReactNode }) {
+  const { lang, dir } = useI18n();
   return (
-    <html lang="en">
+    <html lang={lang} dir={dir}>
       <head>
         <HeadContent />
       </head>
       <body>
         {children}
+        <Toaster position="top-center" richColors />
         <Scripts />
       </body>
     </html>
+  );
+}
+
+function RootShell({ children }: { children: ReactNode }) {
+  return (
+    <I18nProvider>
+      <Html>{children}</Html>
+    </I18nProvider>
   );
 }
 
