@@ -60,7 +60,7 @@ function HomePage() {
             <h1
               lang="ar"
               dir="rtl"
-              className="font-[IBM_Plex_Sans_Arabic] text-4xl font-bold leading-tight tracking-tight sm:text-6xl"
+              className="font-ar text-4xl font-bold leading-tight tracking-tight sm:text-6xl"
             >
               وين تلقى <span className="text-brand-green">واش تحتاج</span>؟
             </h1>
