@@ -26,7 +26,7 @@ export function Logo({ className, tone = "default" }: LogoProps) {
       </span>
       <span
         className={cn(
-          "font-[Inter] text-xl font-extrabold tracking-tight",
+          "font-display text-xl font-extrabold tracking-tight",
           inverse ? "text-primary-foreground" : "text-primary",
         )}
       >
