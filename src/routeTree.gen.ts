@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteSearchRouteImport } from './routes/_site.search'
 import { Route as SiteCategorySlugRouteImport } from './routes/_site.category.$slug'
@@ -18,6 +19,11 @@ import { Route as SiteStoreSlugRouteImport } from './routes/_site.store.$slug'
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SiteIndexRoute = SiteIndexRouteImport.update({
@@ -48,12 +54,14 @@ const SiteStoreSlugRoute = SiteStoreSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/dashboard': typeof DashboardRoute
   '/search': typeof SiteSearchRoute
   '/category/$slug': typeof SiteCategorySlugRoute
   '/product/$id': typeof SiteProductIdRoute
   '/store/$slug': typeof SiteStoreSlugRoute
 }
 export interface FileRoutesByTo {
+  '/dashboard': typeof DashboardRoute
   '/search': typeof SiteSearchRoute
   '/': typeof SiteIndexRoute
   '/category/$slug': typeof SiteCategorySlugRoute
@@ -63,6 +71,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/dashboard': typeof DashboardRoute
   '/_site/search': typeof SiteSearchRoute
   '/_site/': typeof SiteIndexRoute
   '/_site/category/$slug': typeof SiteCategorySlugRoute
@@ -72,12 +81,24 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/search' | '/category/$slug' | '/product/$id' | '/store/$slug'
+    | '/'
+    | '/dashboard'
+    | '/search'
+    | '/category/$slug'
+    | '/product/$id'
+    | '/store/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/search' | '/' | '/category/$slug' | '/product/$id' | '/store/$slug'
+  to:
+    | '/dashboard'
+    | '/search'
+    | '/'
+    | '/category/$slug'
+    | '/product/$id'
+    | '/store/$slug'
   id:
     | '__root__'
     | '/_site'
+    | '/dashboard'
     | '/_site/search'
     | '/_site/'
     | '/_site/category/$slug'
@@ -87,6 +108,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  DashboardRoute: typeof DashboardRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -96,6 +118,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_site/': {
@@ -156,6 +185,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  DashboardRoute: DashboardRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
