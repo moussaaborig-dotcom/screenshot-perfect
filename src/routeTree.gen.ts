@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteSearchRouteImport } from './routes/_site.search'
+import { Route as SiteCategorySlugRouteImport } from './routes/_site.category.$slug'
+import { Route as SiteProductIdRouteImport } from './routes/_site.product.$id'
+import { Route as SiteStoreSlugRouteImport } from './routes/_site.store.$slug'
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
@@ -27,27 +30,59 @@ const SiteSearchRoute = SiteSearchRouteImport.update({
   path: '/search',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteCategorySlugRoute = SiteCategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteProductIdRoute = SiteProductIdRouteImport.update({
+  id: '/product/$id',
+  path: '/product/$id',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteStoreSlugRoute = SiteStoreSlugRouteImport.update({
+  id: '/store/$slug',
+  path: '/store/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/search': typeof SiteSearchRoute
+  '/category/$slug': typeof SiteCategorySlugRoute
+  '/product/$id': typeof SiteProductIdRoute
+  '/store/$slug': typeof SiteStoreSlugRoute
 }
 export interface FileRoutesByTo {
   '/search': typeof SiteSearchRoute
   '/': typeof SiteIndexRoute
+  '/category/$slug': typeof SiteCategorySlugRoute
+  '/product/$id': typeof SiteProductIdRoute
+  '/store/$slug': typeof SiteStoreSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
   '/_site/search': typeof SiteSearchRoute
   '/_site/': typeof SiteIndexRoute
+  '/_site/category/$slug': typeof SiteCategorySlugRoute
+  '/_site/product/$id': typeof SiteProductIdRoute
+  '/_site/store/$slug': typeof SiteStoreSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/search'
+  fullPaths:
+    '/' | '/search' | '/category/$slug' | '/product/$id' | '/store/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/search' | '/'
-  id: '__root__' | '/_site' | '/_site/search' | '/_site/'
+  to: '/search' | '/' | '/category/$slug' | '/product/$id' | '/store/$slug'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/search'
+    | '/_site/'
+    | '/_site/category/$slug'
+    | '/_site/product/$id'
+    | '/_site/store/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,17 +112,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteSearchRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/category/$slug': {
+      id: '/_site/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof SiteCategorySlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/product/$id': {
+      id: '/_site/product/$id'
+      path: '/product/$id'
+      fullPath: '/product/$id'
+      preLoaderRoute: typeof SiteProductIdRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/store/$slug': {
+      id: '/_site/store/$slug'
+      path: '/store/$slug'
+      fullPath: '/store/$slug'
+      preLoaderRoute: typeof SiteStoreSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
   }
 }
 
 interface SiteRouteChildren {
   SiteSearchRoute: typeof SiteSearchRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SiteCategorySlugRoute: typeof SiteCategorySlugRoute
+  SiteProductIdRoute: typeof SiteProductIdRoute
+  SiteStoreSlugRoute: typeof SiteStoreSlugRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteSearchRoute: SiteSearchRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SiteCategorySlugRoute: SiteCategorySlugRoute,
+  SiteProductIdRoute: SiteProductIdRoute,
+  SiteStoreSlugRoute: SiteStoreSlugRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
