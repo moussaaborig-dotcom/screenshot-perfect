@@ -86,10 +86,10 @@ function StorePage() {
       </div>
 
       <div className="container-page">
-        <div className="relative -mt-12 flex flex-col gap-4 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-5">
-            <StoreLogo store={store} size="lg" className="shadow-lift" />
-            <div className="space-y-1 sm:pb-1">
+        <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
+            <StoreLogo store={store} size="lg" className="-mt-10 shadow-lift sm:-mt-12" />
+            <div className="space-y-1 sm:pt-4">
               <div className="flex items-center gap-2">
                 <h1 dir="auto" className="text-2xl font-bold tracking-tight sm:text-3xl">
                   {store.name}
@@ -115,7 +115,7 @@ function StorePage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-2 sm:pb-1">
+          <div className="flex gap-2 sm:pt-4">
             <WhatsAppButton number={store.whatsapp} message={t.whatsapp.storeMessage} className="flex-1 sm:flex-none" />
             <a href={telLink(store.phone)} className={buttonVariants({ variant: "outline", size: "lg" })}>
               <Phone aria-hidden="true" />
