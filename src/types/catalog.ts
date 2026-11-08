@@ -67,9 +67,9 @@ export interface Product {
   id: string;
   /** Product name exactly as the merchant writes it — never translated. */
   name: string;
-  brand?: string;
+  brand?: string | undefined;
   /** Model / variant reference. Different models are distinct products. */
-  model?: string;
+  model?: string | undefined;
   categoryId: string;
   storeId: string;
   /** Price in Algerian dinars (DZD). */

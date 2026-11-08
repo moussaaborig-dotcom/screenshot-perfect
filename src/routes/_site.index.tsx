@@ -149,7 +149,7 @@ function HomePage() {
         <h2 className="mb-6 text-xl font-bold tracking-tight sm:text-2xl">{t.home.howTitle}</h2>
         <ol className="grid gap-4 sm:grid-cols-3">
           {t.home.how.map((step, i) => {
-            const Icon = howIcons[i];
+            const Icon = howIcons[i] ?? Search;
             return (
               <li key={step.title} className="flex gap-4 rounded-2xl border bg-card p-5">
                 <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-green-soft text-brand-green">

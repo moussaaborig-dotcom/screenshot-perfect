@@ -73,12 +73,12 @@ export function countStoresByCategory(categoryId: string): number {
 export type SortOption = "relevance" | "price_asc" | "price_desc";
 
 export interface SearchFilters {
-  q?: string;
-  category?: string; // category slug
-  store?: string; // store slug
-  min?: number;
-  max?: number;
-  sort?: SortOption;
+  q?: string | undefined;
+  category?: string | undefined; // category slug
+  store?: string | undefined; // store slug
+  min?: number | undefined;
+  max?: number | undefined;
+  sort?: SortOption | undefined;
 }
 
 function productScore(product: Product, q: string): number {

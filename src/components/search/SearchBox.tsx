@@ -48,7 +48,7 @@ export function SearchBox({ defaultValue = "", size = "default", autoFocus, clas
       id: p.id,
       label: p.name,
       sub: `${formatPrice(p.price)} · ${getStoreById(p.storeId)?.name ?? ""}`,
-      image: p.images[0],
+      image: p.images[0] ?? "",
     }));
     const stores: Item[] = s.stores.map((st) => ({
       kind: "store",
@@ -241,7 +241,7 @@ export function SearchBox({ defaultValue = "", size = "default", autoFocus, clas
               <p className="px-3 py-2 text-sm text-muted-foreground">{t.search.suggestions.none}</p>
             )}
             <li className="mt-1 border-t pt-1" role="presentation" />
-            {renderItem(flat[flat.length - 1])}
+            {flat.length > 0 && renderItem(flat[flat.length - 1]!)}
           </ul>
         </div>
       )}

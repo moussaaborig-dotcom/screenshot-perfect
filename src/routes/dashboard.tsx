@@ -25,7 +25,7 @@ const MOCK_STATS = { views: 1284, whatsapp: 96 };
 
 export const Route = createFileRoute("/dashboard")({
   validateSearch: (raw: Record<string, unknown>): { tab?: DashboardTab } => {
-    const tab = raw.tab as DashboardTab;
+    const tab = raw["tab"] as DashboardTab;
     return TABS.includes(tab) ? { tab } : {};
   },
   head: () => ({
