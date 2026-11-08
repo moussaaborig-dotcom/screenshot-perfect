@@ -86,7 +86,7 @@ function HomePage() {
             </div>
           </div>
 
-          <dl className="mx-auto mt-12 grid max-w-xl grid-cols-3 divide-x divide-primary-foreground/10 rtl:divide-x-reverse">
+          <dl className="mx-auto mt-12 grid max-w-xl grid-cols-3 [&>*+*]:border-s [&>*+*]:border-primary-foreground/10">
             {[
               { n: getStores().length, label: t.home.stats.stores },
               { n: getProducts().length, label: t.home.stats.products },
@@ -103,7 +103,7 @@ function HomePage() {
       </section>
 
       {/* Categories */}
-      <section className="container-page -mt-6 sm:-mt-8">
+      <section className="container-page relative z-10 -mt-6 sm:-mt-8">
         <div className="rounded-3xl border bg-card p-4 shadow-card sm:p-6">
           <SectionHeader title={t.home.categoriesTitle} text={t.home.categoriesText} />
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-9">
@@ -149,7 +149,7 @@ function HomePage() {
         <h2 className="mb-6 text-xl font-bold tracking-tight sm:text-2xl">{t.home.howTitle}</h2>
         <ol className="grid gap-4 sm:grid-cols-3">
           {t.home.how.map((step, i) => {
-            const Icon = howIcons[i];
+            const Icon = howIcons[i] ?? Search;
             return (
               <li key={step.title} className="flex gap-4 rounded-2xl border bg-card p-5">
                 <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-green-soft text-brand-green">

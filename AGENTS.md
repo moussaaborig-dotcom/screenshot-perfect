@@ -28,3 +28,12 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules (WIN marketplace)
+
+- UI reads catalog data only through `src/lib/catalog.ts`; mock data lives in `src/data/mock/` — why: the backend can later replace the mock arrays in one place without touching components.
+- Shared domain types live in `src/types/catalog.ts` and mirror future database tables — why: keeps mock and real data interchangeable.
+- All interface strings go in `src/i18n/dictionary.ts` (ar + fr) and are read via `useI18n()`; store and product names are never translated — why: merchant-written names must appear exactly as entered.
+- `<html lang/dir>` is rendered from the i18n context in `src/routes/__root.tsx`; use logical utilities (`ms-`, `pe-`, `start-`, `rtl:`/`ltr:`) instead of left/right — why: one layout serves both RTL Arabic and LTR French.
+- Public pages sit under the pathless `_site` layout (navbar + footer); the merchant dashboard is a standalone route with its own sidebar — why: the dashboard must not inherit the shopper chrome.
+- Search never merges or deduplicates products; each model/spec variant is a separate product — why: different models must not be treated as identical.

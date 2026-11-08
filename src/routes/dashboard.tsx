@@ -25,7 +25,7 @@ const MOCK_STATS = { views: 1284, whatsapp: 96 };
 
 export const Route = createFileRoute("/dashboard")({
   validateSearch: (raw: Record<string, unknown>): { tab?: DashboardTab } => {
-    const tab = raw.tab as DashboardTab;
+    const tab = raw["tab"] as DashboardTab;
     return TABS.includes(tab) ? { tab } : {};
   },
   head: () => ({
@@ -119,7 +119,7 @@ function DashboardPage() {
             <div className="space-y-6">
               <div className="rounded-2xl border bg-card p-5 shadow-card">
                 <p className="font-semibold">
-                  {t.dashboard.welcome}، <span dir="auto">{store.name}</span>
+                  {t.dashboard.welcome} <span dir="auto">{store.name}</span>
                 </p>
                 <p className="mt-1 text-sm text-muted-foreground">{t.dashboard.welcomeText}</p>
               </div>

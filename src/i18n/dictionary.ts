@@ -165,7 +165,7 @@ export const dictionary = {
         store: "معلومات المحل",
         backToSite: "العودة للموقع",
       },
-      welcome: "مرحباً بك",
+      welcome: "مرحباً بك،",
       welcomeText: "هذه معاينة لما سيراه صاحب المحل. الأرقام تجريبية.",
       stats: {
         views: "زيارات الصفحة",
@@ -396,7 +396,7 @@ export const dictionary = {
         store: "Infos boutique",
         backToSite: "Retour au site",
       },
-      welcome: "Bienvenue",
+      welcome: "Bienvenue,",
       welcomeText: "Aperçu de ce que verra le commerçant. Les chiffres sont fictifs.",
       stats: {
         views: "Vues de la page",

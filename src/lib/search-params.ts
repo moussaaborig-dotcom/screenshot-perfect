@@ -14,13 +14,13 @@ function str(v: unknown): string | undefined {
 
 /** Validates /search URL params into typed filters. */
 export function parseSearchParams(raw: Record<string, unknown>): SearchFilters {
-  const sort = str(raw.sort) as SortOption | undefined;
+  const sort = str(raw["sort"]) as SortOption | undefined;
   return {
-    q: str(raw.q),
-    category: str(raw.category),
-    store: str(raw.store),
-    min: num(raw.min),
-    max: num(raw.max),
+    q: str(raw["q"]),
+    category: str(raw["category"]),
+    store: str(raw["store"]),
+    min: num(raw["min"]),
+    max: num(raw["max"]),
     sort: sort && SORTS.includes(sort) ? sort : undefined,
   };
 }
