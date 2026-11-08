@@ -26,7 +26,7 @@ export function Navbar() {
   const { t, l } = useI18n();
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const isHome = pathname === "/";
+  const hideHeaderSearch = pathname === "/" || pathname === "/search";
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -52,7 +52,7 @@ export function Navbar() {
           </Link>
         </nav>
 
-        {!isHome && (
+        {!hideHeaderSearch && (
           <div className="mx-auto hidden w-full max-w-md md:block">
             <SearchBox />
           </div>
@@ -79,7 +79,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {!isHome && (
+      {!hideHeaderSearch && (
         <div className="container-page pb-3 md:hidden">
           <SearchBox />
         </div>
